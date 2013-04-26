@@ -39,26 +39,27 @@ public class ConcurrentPersistentList<E extends IConcurrentPersistentListNode<E>
 
 	public ConcurrentPersistentList(
 			IConcurrentPersistentListDao<E> persistentQueueDao,
-			Class<E> elementClass) throws Exception {
+			Class<E> elementClass) {
 		super();
 		this.persistentQueueDao = persistentQueueDao;
 		this.elementClass = elementClass;
 	}
 
-	
 	/*
+	 * (non-Javadoc)
 	 * 
+	 * @see de.homelabs.collection.cpl.IPersistentList#initialize()
 	 */
-	public void initialize() throws Exception {
-		loadLastState();
+	public int initialize() throws Exception {
+		return loadLastState();
 	}
 
-	/**
-	 * load all elements from db and add to list.
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @throws Exception
+	 * @see de.homelabs.collection.cpl.IPersistentList#loadLastState()
 	 */
-	public void loadLastState() throws Exception {
+	public int loadLastState() throws Exception {
 		if (!lastStateLoaded) {
 			// load last state from db
 			List<E> savedElements = CollectionTools.convertToCheckedList(
@@ -69,9 +70,19 @@ public class ConcurrentPersistentList<E extends IConcurrentPersistentListNode<E>
 				add(e, false);
 			}
 			lastStateLoaded = true;
+
+			// return number of elements loaded from db
+			return savedElements.size();
+		} else {
+			// no element loaded
+			return 0;
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.homelabs.collection.cpl.IPersistentList#add(java.lang.Object)
+	 */
 	public boolean add(E element) throws Exception {
 		final ReentrantLock lock = this.lock;
 		lock.lock();
@@ -128,7 +139,7 @@ public class ConcurrentPersistentList<E extends IConcurrentPersistentListNode<E>
 	 * @see de.sag.threadtest.IPersistentQueue#clearQueue()
 	 */
 	@Override
-	public boolean clearQueue() throws Exception {
+	public boolean clearList() throws Exception {
 		final ReentrantLock lock = this.lock;
 		lock.lock();
 		try {

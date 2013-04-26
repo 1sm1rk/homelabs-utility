@@ -48,7 +48,7 @@ public interface IPersistentList<E> {
 	 * @return boolean
 	 * @throws Exception
 	 */
-	boolean clearQueue() throws Exception;
+	boolean clearList() throws Exception;
 	
 	/**
 	 * Compares this object with the specified object for order. Returns a negative integer, zero, or a positive integer as this object 
@@ -179,16 +179,18 @@ public interface IPersistentList<E> {
 	int size(); 
 	
 	/**
-	 * initalize the list and force load from databse. exception could occur so extracted from constructor 
+	 * initalize the list and force load from database. exception could occur so extracted from constructor
+	 * @return returns the number of items loaded from database 
 	 * @throws Exception
 	 */
-	void initialize() throws Exception;
+	int initialize() throws Exception;
 	
 	/**
 	 * load last state (listelements) from database and rebuild list, so we start where we left
+	 * @return returns the number of items loaded from database 
 	 * @throws Exception
 	 */
-	void loadLastState() throws Exception; 
+	int loadLastState() throws Exception; 
 	 
 	/**
 	 * to override the order of the listelements on loadLastState
