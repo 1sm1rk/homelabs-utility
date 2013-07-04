@@ -201,12 +201,12 @@ public class NestedSetHibernateDao implements INestedSetDao {
 				.setInteger("entityRgt", entity.getRgt()).executeUpdate();
 	}
 	
-	public <E> List<E> getSubTree(Class<E> entityClass) throws Exception {
+	public <E> List<E> getSubTree(Class<E> entityClass, int id) throws Exception {
 			return CollectionTools.convertToCheckedList(entityClass, sessionFactory
 					.getCurrentSession()
 					.createQuery(
 							"from "+entityClass.getSimpleName()+" n "
-							+"left join "+entityClass.getSimpleName()+" c on c.id = 18 "
+							+"left join "+entityClass.getSimpleName()+" c on c.id = "+id+" "
 							+"where "
 							+"( "
 							+"	(n.lft <= c.lft and n.rgt >=c.rgt) or (n.lft >=c.lft and n.rgt <= c.rgt) "

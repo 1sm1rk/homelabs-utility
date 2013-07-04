@@ -119,7 +119,7 @@ public class NesteSetService implements INestedSetService {
 	 * (non-Javadoc)
 	 * @see de.homelabs.utility.nestedset.INestedSetService#getSubTree(java.lang.Class)
 	 */
-	public <E> List<E> getSubTree(Class<E> entityClass) throws Exception {
-		return nestedSetDao.getSubTree(entityClass);
+	public <E> List<E> getSubTree(Class<E> entityClass, int id) throws Exception {
+		return nestedSetDao.getSubTree(entityClass, id);
 	}
 }

@@ -115,5 +115,5 @@ public interface INestedSetDao {
 	  * @return List&lt;E&gt;
 	  * @throws Exception
 	  */
-	 <E> List<E> getSubTree(Class<E> entityClass) throws Exception;
+	 <E> List<E> getSubTree(Class<E> entityClass, int id) throws Exception;
 }

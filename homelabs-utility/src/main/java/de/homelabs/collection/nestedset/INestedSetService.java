@@ -57,5 +57,5 @@ public interface INestedSetService {
 	  * @param entityClass
 	  * @return List&lt;E&gt;
 	  */
-	 <E> List<E> getSubTree(Class<E> entityClass) throws Exception;
+	 <E> List<E> getSubTree(Class<E> entityClass, int id) throws Exception;
 }
